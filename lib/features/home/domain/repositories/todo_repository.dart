@@ -10,4 +10,5 @@ abstract class TodoRepository {
   Future<List<Todo>> getUpcomingTodo();
   Future<List<Todo>> findTodoByTitle({required String title, double threshold});
   Future<void> updateTodo(Todo todo);
+  Future<List<Todo>> getOverdueTodo();
 }

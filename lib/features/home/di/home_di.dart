@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:step/features/home/domain/usecases/create/create_usecases.dart';
 import 'package:step/features/home/domain/usecases/crud_usecases.dart';
 import 'package:step/features/home/domain/usecases/read/find_todo_by_title.dart';
+import 'package:step/features/home/domain/usecases/read/get_overdue_todo.dart';
 import 'package:step/features/home/domain/usecases/read/get_todo_by_day.dart';
 import 'package:step/features/home/domain/usecases/read/get_upcoming_todo.dart';
 import 'package:step/features/home/domain/usecases/update/toggle_todo_completion.dart';
@@ -35,6 +36,7 @@ Future<void> initHome() async {
   getIt.registerSingleton<GetUpcomingTodo>(GetUpcomingTodo(getIt<TodoRepository>()));
   getIt.registerSingleton<FindTodoByTitle>(FindTodoByTitle(getIt<TodoRepository>()));
   getIt.registerSingleton<UpdateTodo>(UpdateTodo(repository: getIt<TodoRepository>()));
+  getIt.registerSingleton<GetOverTodo>(GetOverTodo(getIt<TodoRepository>()));
   getIt.registerSingleton<ToggleTodoCompletion>(
       ToggleTodoCompletion(repository: getIt<TodoRepository>()));
 
@@ -46,7 +48,7 @@ Future<void> initHome() async {
   getIt.registerSingleton<UpdateUseCases>(
       UpdateUseCases(toggleTodoCompletion: getIt<ToggleTodoCompletion>(), updateTodo: getIt<UpdateTodo>()));
   getIt.registerSingleton<ReadUseCases>(
-      ReadUseCases(getTodo: getIt<GetTodo>(), getAll: getIt<GetTodos>(), getTodoByDay: getIt<GetTodoByDay>(), getUpcomingTodo: getIt<GetUpcomingTodo>(), findTodoByTitle: getIt<FindTodoByTitle>()));
+      ReadUseCases(getTodo: getIt<GetTodo>(), getAll: getIt<GetTodos>(), getTodoByDay: getIt<GetTodoByDay>(), getUpcomingTodo: getIt<GetUpcomingTodo>(), findTodoByTitle: getIt<FindTodoByTitle>(), getOverTodo: getIt<GetOverTodo>()));
 
   // CRUID
   getIt.registerSingleton<CrudUseCases>(CrudUseCases(

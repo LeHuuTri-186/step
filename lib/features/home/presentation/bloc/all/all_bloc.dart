@@ -18,13 +18,14 @@ class AllBloc extends Bloc<AllEvent, AllState> {
         final List<Todo> allTodos = await crudUseCases.readUseCases.getAll.call();
         final List<Todo> todayTodos = await crudUseCases.readUseCases.getTodoByDay.call(DateTime.now());
         final List<Todo> upcomingTodos = await crudUseCases.readUseCases.getUpcomingTodo.call();
+        final List<Todo> overTodos = await crudUseCases.readUseCases.getOverTodo.call();
 
         if (allTodos.isEmpty) {
           emit(NoTodoFound());
           return;
         }
 
-        emit(AllLoaded(allTodos: allTodos, upcomingTodos: upcomingTodos, todayTodos: todayTodos));
+        emit(AllLoaded(allTodos: allTodos, upcomingTodos: upcomingTodos, todayTodos: todayTodos, overTodos: overTodos));
       } catch (e) {
         emit(AllError());
 

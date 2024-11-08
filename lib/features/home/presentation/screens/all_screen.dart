@@ -82,6 +82,7 @@ class _AllPageState extends State<AllPage> {
         allTodos: state.allTodos,
         todayTodos: state.todayTodos,
         upcomingTodos: state.upcomingTodos,
+        overTodos: state.overTodos,
       );
     } else if (state is NoTodoFound) {
       return _buildNoTodoPanel();
@@ -93,17 +94,20 @@ class _AllPageState extends State<AllPage> {
   Widget _buildTodoPanel(
           {required List<Todo> allTodos,
           required List<Todo> upcomingTodos,
-          required List<Todo> todayTodos}) =>
+          required List<Todo> todayTodos,
+          required List<Todo> overTodos}) =>
       DraggableTodoPanel(
         onChanged: _onUpdateTodo,
         allTodos: allTodos,
         upcomingTodos: upcomingTodos,
+        overTodos: overTodos,
         todayTodos: todayTodos,
         onToggle: _toggleTodoStatus,
         sectionOrder: [
           context.getLocaleString(value: 'today'),
           context.getLocaleString(value: 'upcoming'),
           context.getLocaleString(value: 'all'),
+          context.getLocaleString(value: 'overdue'),
         ],
       );
 
