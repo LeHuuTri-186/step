@@ -8,6 +8,7 @@ class DraggableTodoPanel extends StatefulWidget {
   final List<Todo> allTodos;
   final List<Todo> upcomingTodos;
   final List<Todo> todayTodos;
+  final List<Todo> overTodos;
   final Function(Todo) onToggle;
   final List<String> sectionOrder;
   final ValueChanged<Todo> onChanged;
@@ -19,6 +20,7 @@ class DraggableTodoPanel extends StatefulWidget {
     required this.onToggle,
     required this.sectionOrder,
     required this.onChanged,
+    required this.overTodos,
   });
 
   @override
@@ -38,8 +40,10 @@ class _DraggableTodoPanelState extends State<DraggableTodoPanel> {
             todos = widget.todayTodos;
           } else if (section == context.getLocaleString(value: 'upcoming')) {
             todos = widget.upcomingTodos;
-          } else {
+          } else if (section == context.getLocaleString(value: 'all')) {
             todos = widget.allTodos;
+          } else {
+            todos = widget.overTodos;
           }
 
           return LongPressDraggable<String>(

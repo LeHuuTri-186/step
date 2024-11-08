@@ -102,7 +102,8 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<List<Todo>> findTodoByTitle({required String title, double threshold = 70.0}) async {
+  Future<List<Todo>> findTodoByTitle(
+      {required String title, double threshold = 70.0}) async {
     final todos = await getTodos();
     return todos.where((todo) {
       final similarity = ratio(title, todo.title);
@@ -126,5 +127,20 @@ class TodoRepositoryImpl implements TodoRepository {
     ));
 
     _saveToSharedPreference(todos);
+  }
+
+  @override
+  Future<List<Todo>> getOverdueTodo() async {
+    final todos = await getTodos();
+
+    return todos.where((todo) {
+      bool isDue = DateTimeUtil.isDayBefore(todo.dueDay, DateTime.now());
+
+      if (todo.deadline != null) {
+        isDue = todo.deadline!.isBefore(DateTime.now());
+      }
+
+      return isDue;
+    }).toList();
   }
 }
