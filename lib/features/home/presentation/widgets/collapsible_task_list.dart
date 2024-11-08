@@ -11,12 +11,12 @@ class CollapsibleTodoList extends StatelessWidget {
   final ValueChanged<Todo> onUpdate;
 
   const CollapsibleTodoList({
-    Key? key,
+    super.key,
     required this.todos,
     required this.title,
     required this.onToggle,
     this.isDragged = false, required this.onUpdate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ class DraggableTodoPanel extends StatefulWidget {
   final List<String> sectionOrder;
   final ValueChanged<Todo> onChanged;
 
-  DraggableTodoPanel({
+  const DraggableTodoPanel({super.key, 
     required this.allTodos,
     required this.upcomingTodos,
     required this.todayTodos,

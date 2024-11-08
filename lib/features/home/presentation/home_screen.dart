@@ -14,22 +14,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return _buildView(state);
-        },
-      ),
-      bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return BottomNavigation(
-            currentDay: state.currentDate.day,
-            selectedIndex: state.selectedIndex,
-            onTap: (index) {
-              context.read<HomeBloc>().add(IndexChanged(index));
-            },
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        body: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return _buildView(state);
+          },
+        ),
+        bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return BottomNavigation(
+              currentDay: state.currentDate.day,
+              selectedIndex: state.selectedIndex,
+              onTap: (index) {
+                context.read<HomeBloc>().add(IndexChanged(index));
+              },
+            );
+          },
+        ),
       ),
     );
   }

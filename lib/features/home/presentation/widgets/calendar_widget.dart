@@ -6,7 +6,7 @@ import 'package:step/extensions/app_localization_string_builder.dart';
 class CustomCalendarPicker extends StatefulWidget {
   final Function(DateTime) onDateSelected;
 
-  const CustomCalendarPicker({required this.onDateSelected});
+  const CustomCalendarPicker({super.key, required this.onDateSelected});
 
   @override
   _CustomCalendarPickerState createState() => _CustomCalendarPickerState();

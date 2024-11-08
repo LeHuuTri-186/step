@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:step/core/usecases/param/search_params.dart';
 import 'package:step/features/home/domain/usecases/crud_usecases.dart';
 
 import '../../../domain/entities/todo.dart';

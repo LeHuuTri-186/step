@@ -5,10 +5,10 @@ class TodoSearchBar extends StatefulWidget {
   final String hintText;
 
   const TodoSearchBar({
-    Key? key,
+    super.key,
     required this.onChanged,
     this.hintText = "Search...",
-  }) : super(key: key);
+  });
 
   @override
   _SearchBarState createState() => _SearchBarState();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LabelButton extends StatelessWidget {
-  LabelButton({
+  const LabelButton({
     super.key,
     required this.onTap,
     required this.icon,

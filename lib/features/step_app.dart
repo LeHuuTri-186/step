@@ -47,6 +47,7 @@ class StepApp extends StatelessWidget {
         title: "STEP",
         home: const HomeScreen(),
         theme: AppTheme.light,
+        debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(
           useMaterial3: true,
         ),

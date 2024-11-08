@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:step/extensions/bottom_nav_item_builder.dart';
 
 class BottomNavigation extends StatelessWidget {

@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:step/features/home/presentation/bloc/all/all_event.dart';
 import 'package:step/features/home/presentation/components/draggable_todo_panel.dart';
-import 'package:step/features/home/presentation/widgets/today_title.dart';
 import '../../../../core/utils/notification_helper.dart';
 import '../../../../extensions/app_localization_string_builder.dart';
 import '../bloc/all/all_bloc.dart';

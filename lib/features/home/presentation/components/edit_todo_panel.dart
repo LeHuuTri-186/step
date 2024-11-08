@@ -118,7 +118,7 @@ class _EditTodoPanelState extends State<EditTodoPanel> {
                             return Theme(
                               data: Theme.of(context).copyWith(
                                 timePickerTheme: TimePickerThemeData(
-                                  hourMinuteTextColor: MaterialStateColor.resolveWith((states) => Colors.white),
+                                  hourMinuteTextColor: WidgetStateColor.resolveWith((states) => Colors.white),
                                   backgroundColor: Colors.white,
                                   hourMinuteTextStyle: GoogleFonts.varelaRound(color: Colors.white, fontSize: 20),
                                   hourMinuteColor: Colors.redAccent,
