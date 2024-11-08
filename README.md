@@ -1,20 +1,14 @@
 # step
-<<<<<<< HEAD
 Note taking iOS application with Flutter
 =======
 
 STEP - System for Task Efficiency and Productivity, a simple TODO application
 
-## Getting Started
+STEP support these functionalities:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
->>>>>>> 0074dac (First commit)
+1. Allow the user to create a TODO with an option to select the time for the TODO. 
+2. The main page should offer options to view TODOs by All/Today/Upcoming.
+3. Display the TODO list according to each category: All/Today/Upcoming.
+4. Search functionality for the TODO list.
+5. Send a notification alert for a TODO.
+6. Mark a TODO as completed and remove it from the TODO list.
