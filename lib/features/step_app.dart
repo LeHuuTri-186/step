@@ -10,7 +10,6 @@ import 'home/domain/usecases/crud_usecases.dart';
 import 'home/presentation/bloc/all/all_bloc.dart';
 import 'home/presentation/bloc/home_bloc.dart';
 import 'home/presentation/bloc/flower_display_cubit.dart';
-import 'home/presentation/bloc/scroll_cubit.dart';
 import 'home/presentation/bloc/today/todo_bloc.dart';
 import 'home/presentation/bloc/upcoming/upcoming_bloc.dart';
 
@@ -25,7 +24,6 @@ class StepApp extends StatelessWidget {
         BlocProvider(
             create: (_) => TodoBloc(crudUseCases: getIt<CrudUseCases>())),
         BlocProvider(create: (_) => FlowerDisplayCubit()),
-        BlocProvider(create: (_) => ScrollCubit()),
         BlocProvider(
             create: (_) => UpcomingBloc(crudUseCases: getIt<CrudUseCases>())),
         BlocProvider(

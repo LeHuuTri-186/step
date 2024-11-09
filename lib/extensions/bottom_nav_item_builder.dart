@@ -7,7 +7,7 @@ extension BottomNavItemBuilders on BuildContext {
   BottomNavigationBarItem buildBrowseBottomNavItem({bool isSelected = false}) =>
       BottomNavigationBarItem(
         icon: _buildBrowseIcon(isSelected: isSelected),
-        label: getLocaleString(value: 'browse'),
+        label: getLocaleString(value: 'all'),
       );
 
   Icon _buildBrowseIcon({bool isSelected = false}) => isSelected

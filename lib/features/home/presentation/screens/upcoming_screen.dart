@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
+import 'package:step/extensions/app_localization_string_builder.dart';
 import 'package:step/features/home/presentation/bloc/upcoming/upcoming_event.dart';
 import 'package:step/features/home/presentation/widgets/upcoming_title.dart';
 import '../../../../core/utils/notification_helper.dart';
-import '../../../../extensions/app_localization_string_builder.dart';
 import '../bloc/flower_display_cubit.dart';
-import '../bloc/scroll_cubit.dart';
-import '../bloc/scroll_state.dart';
 import '../bloc/upcoming/upcoming_bloc.dart';
 import '../bloc/upcoming/upcoming_state.dart';
 import '../components/add_todo_panel.dart';
@@ -28,20 +26,15 @@ class UpcomingPage extends StatefulWidget {
 }
 
 class _UpcomingPageState extends State<UpcomingPage> {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
-    _scrollController.addListener(_scrollListener);
     _loadUpcomingTodo();
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
 
     super.dispose();
   }
@@ -52,7 +45,10 @@ class _UpcomingPageState extends State<UpcomingPage> {
       child: Scaffold(
         floatingActionButton: _buildTodoFloatingButton(),
         appBar: _buildAppBar(),
-        body: _buildUpcomingBody(),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: _buildUpcomingBody(),
+        ),
       ),
     );
   }
@@ -71,7 +67,6 @@ class _UpcomingPageState extends State<UpcomingPage> {
     return BlocBuilder<UpcomingBloc, UpcomingState>(
         builder: (_, state) => TodoBodyPanel(
             title: const UpcomingTitle(),
-            scrollController: _scrollController,
             child: _buildChildForState(state)));
   }
 
@@ -87,7 +82,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
 
   Widget _buildUpcomingPanel(List<Todo> todoList) {
     return TodoPanel(
-      onUpdate: _onUpdateTodo,
+        onUpdate: _onUpdateTodo,
         toDoList: todoList,
         onRemove: _removeTodoItem,
         onToggle: _toggleTodoStatus);
@@ -117,18 +112,18 @@ class _UpcomingPageState extends State<UpcomingPage> {
   AppBar _buildAppBar() {
     return AppBar(
       forceMaterialTransparency: true,
-      title: BlocBuilder<ScrollCubit, ScrollState>(
-          builder: (context, state) => state is Scrolled
-              ? Text(context.getLocaleString(value: 'upcoming'))
-              : const Text("")),
+      title: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          context.getLocaleString(value: 'upcoming'),
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              ),
+        ),
+      ),
+        centerTitle: false,
     );
   }
 
-  void _scrollListener() {
-    final scrollState = context.read<ScrollCubit>();
-
-    scrollState.onScroll(_scrollController.position.pixels);
-  }
 
   void _toggleTodoStatus(Todo todo) async {
     context.read<UpcomingBloc>().add(ToggleTodoCompletion(todo.id));

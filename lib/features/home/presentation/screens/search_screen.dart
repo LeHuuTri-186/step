@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
+import 'package:step/extensions/app_localization_string_builder.dart';
 import 'package:step/features/home/presentation/bloc/search/search_bloc.dart';
 import 'package:step/features/home/presentation/widgets/search_bar.dart';
 import '../../../../core/utils/notification_helper.dart';
-import '../../../../extensions/app_localization_string_builder.dart';
 import '../bloc/flower_display_cubit.dart';
-import '../bloc/scroll_cubit.dart';
 import '../bloc/search/search_event.dart';
 import '../bloc/search/search_state.dart';
 import '../components/add_todo_panel.dart';
@@ -27,21 +26,16 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
-    _scrollController.addListener(_scrollListener);
 
     context.read<SearchBloc>().add(SearchTodos());
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
 
     super.dispose();
   }
@@ -75,7 +69,6 @@ class _SearchPageState extends State<SearchPage> {
                 const Divider(),
                 Expanded(
                   child: TodoBodyPanel(
-                      scrollController: _scrollController,
                       child: _buildChildForState(state)),
                 ),
               ],
@@ -136,12 +129,6 @@ class _SearchPageState extends State<SearchPage> {
 
   void _onSearchChanged(String query) {
     context.read<SearchBloc>().add(SearchTodos(title: query));
-  }
-
-  void _scrollListener() {
-    final scrollState = context.read<ScrollCubit>();
-
-    scrollState.onScroll(_scrollController.position.pixels);
   }
 
   void _toggleTodoStatus(Todo todo) async {

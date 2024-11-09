@@ -53,7 +53,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       Todo? todo = await crudUseCases.readUseCases.getTodo(event.id);
 
-      if (todo != null && todo.isDone) {
+      if (todo!.isDone) {
         await crudUseCases.deleteUseCases.removeTodo.call(todo);
       }
 

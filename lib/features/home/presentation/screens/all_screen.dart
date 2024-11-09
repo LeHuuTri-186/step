@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
+import 'package:step/extensions/app_localization_string_builder.dart';
 import 'package:step/features/home/presentation/bloc/all/all_event.dart';
 import 'package:step/features/home/presentation/components/draggable_todo_panel.dart';
 import '../../../../core/utils/notification_helper.dart';
-import '../../../../extensions/app_localization_string_builder.dart';
 import '../bloc/all/all_bloc.dart';
 import '../bloc/all/all_state.dart';
 import '../bloc/flower_display_cubit.dart';
-import '../bloc/scroll_cubit.dart';
-import '../bloc/scroll_state.dart';
 import '../components/add_todo_panel.dart';
 import '../components/no_todo_panel.dart';
 import '../components/todo_body_panel.dart';
@@ -28,20 +26,15 @@ class AllPage extends StatefulWidget {
 }
 
 class _AllPageState extends State<AllPage> {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
-    _scrollController.addListener(_scrollListener);
     _loadAllTodo();
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
 
     super.dispose();
   }
@@ -52,7 +45,10 @@ class _AllPageState extends State<AllPage> {
       child: Scaffold(
         floatingActionButton: _buildTodoFloatingButton(),
         appBar: _buildAppBar(),
-        body: _buildTodoBody(),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: _buildTodoBody(),
+        ),
       ),
     );
   }
@@ -71,7 +67,6 @@ class _AllPageState extends State<AllPage> {
     return BlocBuilder<AllBloc, AllState>(
         builder: (_, state) => TodoBodyPanel(
             title: const AllTitle(),
-            scrollController: _scrollController,
             child: _buildChildForState(state)));
   }
 
@@ -134,17 +129,16 @@ class _AllPageState extends State<AllPage> {
   AppBar _buildAppBar() {
     return AppBar(
       forceMaterialTransparency: true,
-      title: BlocBuilder<ScrollCubit, ScrollState>(
-          builder: (context, state) => state is Scrolled
-              ? Text(context.getLocaleString(value: 'all'))
-              : const Text("")),
+      title: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          context.getLocaleString(value: 'all'),
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              ),
+        ),
+      ),
+      centerTitle: false,
     );
-  }
-
-  void _scrollListener() {
-    final scrollState = context.read<ScrollCubit>();
-
-    scrollState.onScroll(_scrollController.position.pixels);
   }
 
   void _toggleTodoStatus(Todo todo) async {

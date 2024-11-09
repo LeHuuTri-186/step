@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
+import 'package:step/core/utils/date_of_month_icons.dart';
+import 'package:step/extensions/app_localization_string_builder.dart';
 import 'package:step/features/home/presentation/widgets/today_title.dart';
 import '../../../../core/utils/notification_helper.dart';
-import '../../../../extensions/app_localization_string_builder.dart';
 import '../bloc/flower_display_cubit.dart';
-import '../bloc/scroll_cubit.dart';
-import '../bloc/scroll_state.dart';
 import '../bloc/today/todo_bloc.dart';
 import '../bloc/today/todo_event.dart';
 import '../bloc/today/todo_state.dart';
@@ -28,21 +27,16 @@ class TodayPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<TodayPage> {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    _scrollController.addListener(_scrollListener);
     _loadTodayTodo();
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
-
     super.dispose();
   }
 
@@ -52,7 +46,10 @@ class _TodayPageState extends State<TodayPage> {
       child: Scaffold(
         floatingActionButton: _buildTodoFloatingButton(),
         appBar: _buildAppBar(),
-        body: _buildTodoBody(),
+        body: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+          child: _buildTodoBody(),
+        ),
       ),
     );
   }
@@ -71,7 +68,6 @@ class _TodayPageState extends State<TodayPage> {
     return BlocBuilder<TodoBloc, TodoState>(
         builder: (_, state) => TodoBodyPanel(
             title: const TodayTitle(),
-            scrollController: _scrollController,
             child: _buildChildForState(state)));
   }
 
@@ -87,7 +83,7 @@ class _TodayPageState extends State<TodayPage> {
 
   Widget _buildTodoPanel(List<Todo> todoList) {
     return TodoPanel(
-      onUpdate: _onUpdateTodo,
+        onUpdate: _onUpdateTodo,
         toDoList: todoList,
         onRemove: _removeTodoItem,
         onToggle: _toggleTodoStatus);
@@ -117,17 +113,16 @@ class _TodayPageState extends State<TodayPage> {
   AppBar _buildAppBar() {
     return AppBar(
       forceMaterialTransparency: true,
-      title: BlocBuilder<ScrollCubit, ScrollState>(
-          builder: (context, state) => state is Scrolled
-              ? Text(context.getLocaleString(value: 'today'))
-              : const Text("")),
+      title: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          context.getLocaleString(value: 'today'),
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              ),
+        ),
+      ),
+        centerTitle: false,
     );
-  }
-
-  void _scrollListener() {
-    final scrollState = context.read<ScrollCubit>();
-
-    scrollState.onScroll(_scrollController.position.pixels);
   }
 
   void _toggleTodoStatus(Todo todo) async {

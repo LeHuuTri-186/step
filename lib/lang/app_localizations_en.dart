@@ -59,7 +59,7 @@ class AppLocalizationsEn {
     'oct_short': 'Oct',
     'nov_short': 'Nov',
     'dec_short': 'Dec',
-    'overdue': 'overdue',
+    'overdue': 'Overdue',
     'invalid_time': 'Invalid time'
   };
 }
